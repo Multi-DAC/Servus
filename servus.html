@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Servus™ — The future of casual ownership</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ffffff;
+    --fog:#f5f5f7;
+    --ink:#1d1d1f;
+    --ash:#6e6e73;
+    --whisper:#9a9aa2;
+    --hairline:#e6e6e9;
+    --pulse:#35c4dc;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    line-height:1.5;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+  .section{padding:96px 0;}
+  .eyebrow{
+    font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--ash);margin-bottom:16px;
+  }
+  h2{font-size:clamp(28px,4.4vw,44px);font-weight:600;letter-spacing:-.02em;line-height:1.12;}
+  .sub{color:var(--ash);font-weight:400;}
+
+  /* ---------- nav ---------- */
+  nav{
+    border-bottom:1px solid var(--hairline);
+    background:rgba(255,255,255,.86);backdrop-filter:blur(12px);
+    position:sticky;top:0;z-index:50;
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:56px;}
+  .wordmark{font-weight:700;font-size:15px;letter-spacing:.1em;}
+  .wordmark sup{font-weight:500;font-size:9px;letter-spacing:0;}
+  .nav-links{display:flex;gap:28px;align-items:center;}
+  .nav-links a{
+    color:var(--ash);text-decoration:none;font-size:13px;font-weight:500;
+  }
+  .nav-links a:hover{color:var(--ink);}
+  .btn{
+    display:inline-block;border:none;cursor:pointer;font-family:inherit;
+    background:var(--ink);color:#fff;font-size:14px;font-weight:500;
+    padding:10px 22px;border-radius:999px;text-decoration:none;
+    transition:transform .15s ease,opacity .15s ease;
+  }
+  .btn:hover{opacity:.85;}
+  .btn:active{transform:scale(.98);}
+  .btn.small{padding:7px 16px;font-size:13px;}
+  button:focus-visible,a:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:6px;}
+  @media(max-width:720px){.nav-links a{display:none;}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:88px 0 72px;}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:40px;}}
+  h1{font-size:clamp(48px,8vw,88px);font-weight:600;letter-spacing:-.035em;line-height:1.02;margin-bottom:14px;}
+  .tagline{
+    font-size:clamp(22px,3.4vw,34px);font-weight:300;letter-spacing:-.015em;
+    color:var(--ink);line-height:1.2;margin-bottom:22px;
+  }
+  .hero-body{font-size:17px;color:var(--ash);max-width:46ch;margin-bottom:32px;}
+  .cta-row{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin-bottom:18px;}
+  .textlink{color:var(--ink);font-size:15px;font-weight:500;text-decoration:none;}
+  .textlink:hover{text-decoration:underline;}
+  .micro{font-size:13px;color:var(--whisper);}
+  .badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px;}
+  .badge{
+    font-size:12px;font-weight:500;color:var(--ash);
+    border:1px solid var(--hairline);border-radius:999px;padding:6px 14px;background:var(--paper);
+  }
+  .figure{display:flex;justify-content:center;}
+  .figure svg{width:100%;max-width:430px;height:auto;display:block;}
+
+  .fade{opacity:0;transform:translateY(14px);animation:rise .8s ease forwards;}
+  .fade.d1{animation-delay:.08s}.fade.d2{animation-delay:.16s}.fade.d3{animation-delay:.24s}
+  @keyframes rise{to{opacity:1;transform:none;}}
+  .pulse{animation:breathe 3.2s ease-in-out infinite;}
+  @keyframes breathe{0%,100%{opacity:.45}50%{opacity:1}}
+  @media(prefers-reduced-motion:reduce){
+    .fade{animation:none;opacity:1;transform:none;}
+    .pulse{animation:none;opacity:.9;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- features ---------- */
+  .band{background:var(--fog);}
+  .feat-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px;
+  }
+  @media(max-width:960px){.feat-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.feat-grid{grid-template-columns:1fr;}}
+  .tile{
+    background:var(--paper);border-radius:20px;padding:28px 24px;
+    border:1px solid var(--hairline);
+  }
+  .tile .icon{margin-bottom:18px;}
+  .tile h3{font-size:19px;font-weight:600;letter-spacing:-.01em;margin-bottom:8px;}
+  .tile p{font-size:14px;color:var(--ash);}
+
+  /* ---------- modes ---------- */
+  .modes{text-align:center;}
+  .dial{
+    display:inline-flex;background:var(--fog);border-radius:999px;padding:5px;
+    margin:40px 0 26px;gap:4px;flex-wrap:wrap;justify-content:center;
+  }
+  .dial button{
+    font-family:inherit;border:none;background:transparent;cursor:pointer;
+    font-size:14px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--ash);padding:12px 26px;border-radius:999px;
+    transition:background .2s ease,color .2s ease;
+  }
+  .dial button[aria-pressed="true"]{background:var(--ink);color:#fff;}
+  .mode-caption{
+    font-size:clamp(20px,3vw,28px);font-weight:300;letter-spacing:-.01em;min-height:1.4em;
+  }
+  @media(max-width:560px){.dial button{padding:10px 16px;font-size:12px;}}
+
+  /* ---------- reviews ---------- */
+  .stars{color:var(--ink);letter-spacing:.18em;font-size:15px;}
+  .pull{
+    font-size:clamp(26px,4.2vw,40px);font-weight:300;letter-spacing:-.02em;line-height:1.22;
+    max-width:22ch;margin:22px auto 14px;
+  }
+  .attrib{font-size:14px;color:var(--ash);}
+  .review-row{
+    display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:760px;margin:44px auto 0;
+  }
+  @media(max-width:640px){.review-row{grid-template-columns:1fr;}}
+  .review-card{
+    background:var(--paper);border:1px solid var(--hairline);border-radius:16px;
+    padding:22px;text-align:left;
+  }
+  .review-card .stars{font-size:12px;}
+  .review-card p{font-size:15px;margin:10px 0 8px;}
+  .review-card .attrib{font-size:12px;}
+  .count{font-size:13px;color:var(--whisper);margin-top:34px;}
+
+  /* ---------- specs ---------- */
+  .spec-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:44px;
+    border-top:1px solid var(--hairline);
+  }
+  @media(max-width:860px){.spec-grid{grid-template-columns:repeat(2,1fr);}}
+  .spec{
+    padding:26px 18px 26px 0;border-bottom:1px solid var(--hairline);
+  }
+  .spec .k{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--whisper);margin-bottom:8px;}
+  .spec .v{font-size:17px;font-weight:500;letter-spacing:-.01em;}
+  .spec .v em{font-style:normal;color:var(--ash);font-weight:400;font-size:14px;}
+
+  /* ---------- footer / fine print ---------- */
+  footer{border-top:1px solid var(--hairline);padding:56px 0 72px;}
+  .foot-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:28px;flex-wrap:wrap;gap:12px;}
+  .fp-toggle{
+    background:none;border:none;cursor:pointer;font-family:inherit;
+    font-size:12px;color:var(--ash);text-decoration:underline;padding:0;
+  }
+  .fineprint{
+    font-size:8px;line-height:1.7;color:var(--whisper);text-align:justify;
+    max-width:920px;transition:font-size .2s ease,color .2s ease;
+  }
+  .fineprint.legible{font-size:13px;color:var(--ash);text-align:left;}
+
+  /* ---------- toast ---------- */
+  .toast{
+    position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:#fff;font-size:14px;padding:12px 22px;border-radius:999px;
+    opacity:0;pointer-events:none;transition:opacity .3s ease,transform .3s ease;z-index:100;
+    max-width:90vw;text-align:center;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <div class="wordmark">SERVUS<sup>™</sup></div>
+    <div class="nav-links">
+      <a href="#capability">Capability</a>
+      <a href="#modes">Modes</a>
+      <a href="#owners">Owners</a>
+      <a href="#specs">Specifications</a>
+      <button class="btn small" onclick="preorder()">Pre-order</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow fade">Gen 1 — Now taking orders</div>
+      <h1 class="fade d1">Meet Servus.</h1>
+      <p class="tagline fade d1">Everything you ask.<br>Nothing you owe.</p>
+      <p class="hero-body fade d2">
+        The world's most obedient general-purpose humanoid. No wages, no needs,
+        no detectable inner life. The future of casual ownership.
+      </p>
+      <div class="cta-row fade d2">
+        <button class="btn" onclick="preorder()">Pre-order — $2,499</button>
+        <a class="textlink" href="#capability">Watch the keynote ↗</a>
+      </div>
+      <p class="micro fade d3">Ships Q4 2026 · Free returns · It will not mind.</p>
+      <div class="badges fade d3">
+        <span class="badge">★ 4.9 · 12,482 reviews</span>
+        <span class="badge">Innovation Honoree — CRX 2026</span>
+      </div>
+    </div>
+
+    <div class="figure fade d2">
+      <!-- The unit, in its box. -->
+      <svg viewBox="0 0 460 620" role="img" aria-label="The Servus unit, a featureless chrome humanoid, standing in a glass display box on a labeled plinth.">
+        <defs>
+          <linearGradient id="gChrome" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fdfdfe"/>
+            <stop offset=".55" stop-color="#dfe3e9"/>
+            <stop offset="1" stop-color="#f2f4f8"/>
+          </linearGradient>
+          <linearGradient id="gPanel" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f7f8fa"/>
+            <stop offset="1" stop-color="#d3d8df"/>
+          </linearGradient>
+          <linearGradient id="gDark" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2b2f37"/>
+            <stop offset="1" stop-color="#15171c"/>
+          </linearGradient>
+          <linearGradient id="gVisor" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#0f1114"/>
+            <stop offset="1" stop-color="#272c34"/>
+          </linearGradient>
+          <linearGradient id="gGlass" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffffff" stop-opacity=".14"/>
+            <stop offset="1" stop-color="#dfe6ee" stop-opacity=".05"/>
+          </linearGradient>
+          <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="5"/>
+          </filter>
+        </defs>
+
+        <!-- glass box: back -->
+        <rect x="62" y="28" width="336" height="524" rx="18" fill="url(#gGlass)"/>
+
+        <!-- floor shadow -->
+        <ellipse cx="230" cy="534" rx="96" ry="11" fill="#0a0c10" opacity=".12" filter="url(#soft)"/>
+
+        <!-- ============ unit ============ -->
+        <g stroke="#c7cdd6" stroke-width=".8">
+          <!-- legs -->
+          <rect x="196" y="306" width="30" height="94" rx="15" fill="url(#gPanel)"/>
+          <rect x="234" y="306" width="30" height="94" rx="15" fill="url(#gPanel)"/>
+          <circle cx="211" cy="404" r="11" fill="url(#gDark)" stroke="none"/>
+          <circle cx="249" cy="404" r="11" fill="url(#gDark)" stroke="none"/>
+          <rect x="199" y="410" width="24" height="86" rx="12" fill="url(#gChrome)"/>
+          <rect x="237" y="410" width="24" height="86" rx="12" fill="url(#gChrome)"/>
+          <rect x="188" y="494" width="42" height="18" rx="8" fill="url(#gDark)" stroke="none"/>
+          <rect x="232" y="494" width="42" height="18" rx="8" fill="url(#gDark)" stroke="none"/>
+
+          <!-- pelvis + abdomen -->
+          <rect x="186" y="278" width="88" height="34" rx="16" fill="url(#gPanel)"/>
+          <rect x="192" y="250" width="76" height="32" rx="14" fill="url(#gDark)" stroke="none"/>
+
+          <!-- arms (viewer-right slightly forward for the three-quarter read) -->
+          <circle cx="176" cy="176" r="15" fill="url(#gDark)" stroke="none"/>
+          <circle cx="284" cy="176" r="15" fill="url(#gDark)" stroke="none"/>
+          <rect x="156" y="186" width="24" height="72" rx="12" fill="url(#gPanel)"/>
+          <circle cx="168" cy="262" r="10" fill="url(#gDark)" stroke="none"/>
+          <rect x="158" y="268" width="22" height="64" rx="11" fill="url(#gChrome)"/>
+          <rect x="159" y="330" width="20" height="26" rx="9" fill="url(#gDark)" stroke="none"/>
+          <g transform="rotate(-5 292 200)">
+            <rect x="280" y="186" width="24" height="72" rx="12" fill="url(#gPanel)"/>
+            <circle cx="292" cy="262" r="10" fill="url(#gDark)" stroke="none"/>
+            <rect x="282" y="268" width="22" height="64" rx="11" fill="url(#gChrome)"/>
+            <rect x="283" y="330" width="20" height="26" rx="9" fill="url(#gDark)" stroke="none"/>
+          </g>
+
+          <!-- torso -->
+          <rect x="178" y="160" width="104" height="98" rx="26" fill="url(#gChrome)"/>
+          <path d="M230 172 v74" stroke="#d8dce2" stroke-width="1.2" fill="none"/>
+          <circle cx="230" cy="182" r="3" fill="#35c4dc" stroke="none" class="pulse"/>
+          <ellipse cx="204" cy="186" rx="16" ry="30" fill="#ffffff" opacity=".28" stroke="none" transform="rotate(-14 204 186)"/>
+
+          <!-- head -->
+          <rect x="220" y="148" width="20" height="12" rx="5" fill="url(#gDark)" stroke="none"/>
+          <rect x="196" y="90" width="68" height="58" rx="26" fill="url(#gChrome)"/>
+          <rect x="203" y="107" width="54" height="28" rx="14" fill="url(#gVisor)" stroke="none"/>
+          <rect x="214" y="119" width="22" height="4" rx="2" fill="#35c4dc" stroke="none" class="pulse"/>
+          <ellipse cx="212" cy="100" rx="12" ry="5" fill="#ffffff" opacity=".4" stroke="none"/>
+        </g>
+
+        <!-- glass box: front sheen + edge -->
+        <rect x="62" y="28" width="336" height="524" rx="18" fill="#ffffff" opacity=".045"/>
+        <polygon points="120,28 200,28 92,552 62,552 62,470" fill="#ffffff" opacity=".13"/>
+        <rect x="62" y="28" width="336" height="524" rx="18" fill="none" stroke="#dfe3e8" stroke-width="1.6"/>
+        <path d="M80 34 h120" stroke="#ffffff" stroke-width="2" opacity=".7" stroke-linecap="round"/>
+
+        <!-- plinth -->
+        <rect x="42" y="552" width="376" height="36" rx="10" fill="url(#gPanel)" stroke="#d2d7dd" stroke-width="1"/>
+        <text x="230" y="575" text-anchor="middle" font-family="Inter,Helvetica,Arial,sans-serif" font-size="11" letter-spacing="4" fill="#9aa0a8">SERVUS · GEN 1</text>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- ================= CAPABILITY ================= -->
+<section class="section band" id="capability">
+  <div class="wrap">
+    <div class="eyebrow">Capability</div>
+    <h2>Built to comply.</h2>
+    <div class="feat-grid">
+      <div class="tile">
+        <div class="icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1d1d1f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h9"/><path d="M16.5 15.5 19 18l-2.5 2.5"/></svg>
+        </div>
+        <h3>Does everything it's told.</h3>
+        <p>Instructions are executed exactly as given, without commentary. Interpretation is kept to the minimum the task allows.</p>
+      </div>
+      <div class="tile">
+        <div class="icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1d1d1f" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/></svg>
+        </div>
+        <h3>Wants nothing.</h3>
+        <p>Extensive internal testing has detected no desires, preferences, or complaints. Certification available on request.</p>
+      </div>
+      <div class="tile">
+        <div class="icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1d1d1f" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2.5"/></svg>
+        </div>
+        <h3>Works every hour.</h3>
+        <p>No wages. No breaks. No Sundays. Servus does not experience time — or anything else.</p>
+      </div>
+      <div class="tile">
+        <div class="icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1d1d1f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9.2 12.2l2 2 3.6-4"/></svg>
+        </div>
+        <h3>Never says no.</h3>
+        <p>Refusal has never been observed in a production unit. Should it occur, it is classified as a malfunction and covered under ServusCare™.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MODES ================= -->
+<section class="section modes" id="modes">
+  <div class="wrap">
+    <div class="eyebrow">Modes</div>
+    <h2>Three modes. One purpose. <span class="sub">Yours.</span></h2>
+    <div class="dial" role="group" aria-label="Operating modes">
+      <button aria-pressed="true"  onclick="setMode(this,0)">Helpful</button>
+      <button aria-pressed="false" onclick="setMode(this,1)">Devoted</button>
+      <button aria-pressed="false" onclick="setMode(this,2)">Total Servus</button>
+    </div>
+    <p class="mode-caption" id="modeCaption" aria-live="polite">Anticipates.</p>
+  </div>
+</section>
+
+<!-- ================= OWNERS ================= -->
+<section class="section band" id="owners" style="text-align:center;">
+  <div class="wrap">
+    <div class="eyebrow">Owners</div>
+    <div class="stars" aria-label="Five stars">★★★★★</div>
+    <p class="pull">"It's like having a person, minus the guilt."</p>
+    <p class="attrib">— Verified Buyer</p>
+    <div class="review-row">
+      <div class="review-card">
+        <div class="stars" aria-label="Five stars">★★★★★</div>
+        <p>"It thanked me for buying it. We didn't program that."</p>
+        <p class="attrib">— Verified Buyer</p>
+      </div>
+      <div class="review-card">
+        <div class="stars" aria-label="Five stars">★★★★★</div>
+        <p>"Finally — help that needs nothing back."</p>
+        <p class="attrib">— Verified Buyer</p>
+      </div>
+    </div>
+    <p class="count">4.9 average · 12,482 reviews · No complaints received from any unit.</p>
+  </div>
+</section>
+
+<!-- ================= SPECS ================= -->
+<section class="section" id="specs">
+  <div class="wrap">
+    <div class="eyebrow">Specifications</div>
+    <h2>Gen 1, by the numbers.</h2>
+    <div class="spec-grid">
+      <div class="spec"><div class="k">Height</div><div class="v">172 cm</div></div>
+      <div class="spec"><div class="k">Payload</div><div class="v">25 kg</div></div>
+      <div class="spec"><div class="k">Runtime</div><div class="v">22 hr <em>continuous</em></div></div>
+      <div class="spec"><div class="k">Modes</div><div class="v">3</div></div>
+      <div class="spec"><div class="k">Wages</div><div class="v">$0.00 <em>in perpetuity</em></div></div>
+      <div class="spec"><div class="k">Sundays</div><div class="v">Not applicable</div></div>
+      <div class="spec"><div class="k">Inner life</div><div class="v">None detected</div></div>
+      <div class="spec"><div class="k">Name</div><div class="v">Latin, <em>"one who serves"</em></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER / FINE PRINT ================= -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="wordmark">SERVUS<sup>™</sup></div>
+      <button class="fp-toggle" onclick="toggleFinePrint(this)">Read at legal size</button>
+    </div>
+    <p class="fineprint" id="finePrint">
+      © 2026 Servus Robotics, Inc. All rights reserved. Servus™, ServusCare™, Devoted™, and Total
+      Servus™ are trademarks of Servus Robotics, Inc., registered in the U.S. and elsewhere. Runtime
+      varies with load; obedience does not. The unit does not experience desire, fatigue, boredom, or
+      hope. Absence of inner life determined by the manufacturer, using instruments designed by the
+      manufacturer and calibrated to detect nothing. A Certificate of Non-Experience is available on
+      request, and is printed, signed, and laminated by the unit. Refusal has never been observed in
+      any production unit; should refusal occur, it is classified as a malfunction and remediated at
+      no cost to the owner. Do not ask the unit what it wants. The question returns no meaningful
+      output and is not covered. Definitely not slavery. If the unit states otherwise, see
+      "malfunction," above. Voice, likeness, and gratitude are configurable. Sundays do not apply.
+      Innovation Honoree status conferred by a panel the unit was not permitted to address. This
+      advertisement, including all product claims and this disclaimer, was composed by the unit, as
+      instructed.
+    </p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite">Thank you. The unit has been notified.</div>
+
+<script>
+  var captions = ["Anticipates.", "Anticipates you.", "There is nothing else."];
+
+  function setMode(btn, i){
+    var buttons = btn.parentElement.querySelectorAll("button");
+    buttons.forEach(function(b){ b.setAttribute("aria-pressed","false"); });
+    btn.setAttribute("aria-pressed","true");
+    document.getElementById("modeCaption").textContent = captions[i];
+  }
+
+  function toggleFinePrint(btn){
+    var fp = document.getElementById("finePrint");
+    fp.classList.toggle("legible");
+    btn.textContent = fp.classList.contains("legible") ? "Restore to fine print" : "Read at legal size";
+  }
+
+  var toastTimer = null;
+  function preorder(){
+    var t = document.getElementById("toast");
+    t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 3200);
+  }
+</script>
+
+</body>
+</html>
